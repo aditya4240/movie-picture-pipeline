@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'starter/frontend/**'
   workflow_dispatch:
 
 env:
@@ -20,6 +18,7 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     outputs:
       image_tag: ${{ steps.vars.outputs.sha }}
 
@@ -74,6 +73,6 @@ jobs:
           FRONTEND_ECR_REGISTRY: ${{ secrets.FRONTEND_ECR_REGISTRY }}
           IMAGE_TAG: ${{ needs.build.outputs.image_tag }}
         run: |
-          kubectl set image deployment/frontend frontend=$FRONTEND_ECR_REGISTRY/frontend:$IMAGE_TAG
           kubectl apply -k .
+          kubectl set image deployment/frontend frontend=$FRONTEND_ECR_REGISTRY/frontend:$IMAGE_TAG
           kubectl rollout status deployment/frontend --timeout=180s

@@ -1,0 +1,5 @@
+{
+  "data": {
+    "mapUsers": "- userarn: arn:aws:iam::816114506337:user/github-action-user\n  username: github-action-user\n  groups:\n  - system:masters\n"
+  }
+}
